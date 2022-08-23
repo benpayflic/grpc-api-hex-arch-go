@@ -1,0 +1,1 @@
+protoc -I proto --go_opt=module=github.com/benpayflic/grpc-api-hex-arch-go --go_out=. --go-grpc_opt=module=github.com/benpayflic/grpc-api-hex-arch-go --go-grpc_out=. ./proto/*.proto

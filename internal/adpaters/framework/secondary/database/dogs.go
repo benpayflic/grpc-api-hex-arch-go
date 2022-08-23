@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func (dba *Adapter) CreatDog(dog *d.Dog) error {
+func (dba *Adapter) CreateDog(dog *d.Dog) error {
 	_, err := dba.collection.InsertOne(context.Background(), dog)
 	if err != nil {
 		return err
@@ -28,7 +28,7 @@ func (dba *Adapter) RetrieveDog(name string) (*d.Dog, error) {
 
 func (dba *Adapter) UpdateDog(dog *d.Dog) error {
 
-	filter := bson.M{"namr": dog.Name}
+	filter := bson.M{"name": dog.Name}
 
 	res, err := dba.collection.UpdateOne(context.Background(),
 		filter,
@@ -39,7 +39,7 @@ func (dba *Adapter) UpdateDog(dog *d.Dog) error {
 	}
 
 	if res.MatchedCount == 0 {
-		return fmt.Errorf("can not find blog with provided name")
+		return fmt.Errorf("no dog found with name %v", dog.Name)
 	}
 	return nil
 }
@@ -51,7 +51,7 @@ func (dba *Adapter) DeleteDog(name string) error {
 		return fmt.Errorf("can not delete")
 	}
 	if res.DeletedCount == 0 {
-		return fmt.Errorf("no dog found with provided name")
+		return fmt.Errorf("no dog found with name %v", name)
 	}
 
 	return nil

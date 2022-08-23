@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package dogs;
+
+option go_package = "github.com/benpayflic/grpc-api-hex-arch-go/proto";
+
+// Requests
+message CreateDogRequest {
+    string name = 1;
+    string breed = 2;
+    string dob = 3;
+}
+
+message RetrieveDogRequest {
+    string name = 1;
+}
+
+message UpdateDogRequest {
+    string name = 1;
+    string breed = 2;
+    string dob = 3;
+}
+
+message DeleteDogRequest {
+    string name = 1;
+}
+
+// Responses
+
+message CreateDogResponse {
+    string message = 1;
+}
+message RetrieveDogResponse {
+    string message = 1;
+    message Dog {
+        string name = 1;
+        string breed = 2;
+        string dob = 3;
+        int64 humanYears = 4;
+    }
+    Dog dog = 2;
+}
+message UpdateDogResponse {
+    string message = 1;
+}
+message DeleteDogResponse {
+    string message = 1;
+}
+
+
+// Services
+service DogService {
+    rpc CreateDog (CreateDogRequest) returns (CreateDogResponse);
+    rpc RetrieveDog (RetrieveDogRequest) returns (RetrieveDogResponse);
+    rpc UpdateDog (UpdateDogRequest) returns (UpdateDogResponse);
+    rpc DeleteDog (DeleteDogRequest) returns (DeleteDogResponse);
+}
